@@ -45,7 +45,7 @@ Now let's push some data into the buffer and advance the cursor. To start, we'll
 - Need fractions? Use floats.
 - Need negatives? Use signed integers.
 - Else, use unsigned integers.
-- Need Enums? Don't use strings or metadatas, assign each one a number and use a u8.
+- Need Enums? Don't use strings or metadatas, assign each one a number and use a u1.
 #### Strings
 - Best for unique names, descriptions, titles, user inputs, or bodies of text.
 #### Booleans
