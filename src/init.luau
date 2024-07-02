@@ -582,7 +582,7 @@ type Buffit = {
 
 --[=[
 	@within Cursor
-	Mag a Cursor into a [Buffit Cursor](https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau) type.
+	Map a Cursor into a [Buffit Cursor](https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau) type.
 ]=]
 local function tobuffit(cursor: Cursor): Buffit
 	return {
