@@ -19,7 +19,7 @@ image = "/Cursor.png"
 
 [[home.features]]
 title = "Ergonomic"
-description = "A dead-simple, flat procedural and object api to let you focus on encoding your data."
+description = "A dead-simple, flat, procedural and object api to let you focus on encoding your data and not the library."
 
 [docusaurus]
 onBrokenLinks = "throw"
@@ -28,7 +28,7 @@ favicon = "/favicon.ico"
 
 # From git:
 organizationName = "Data-Oriented-House"
-projectName = "Squash"
+projectName = "Cursor"
 url = "https://data-oriented-house.github.io"
 baseUrl = "/Cursor/"
 tagline = "Luau's Dynamic Bytestack"

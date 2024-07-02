@@ -3,6 +3,6 @@ name = "data-oriented-house/cursor"
 version = "1.0.0"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
-description = "A minimal and efficient wrapper around buffers to push and pop: number, string, bool, and variable-length-quantity data types."
+description = "A minimal wrapper around buffers to push and pop: number, string, bool, and variable-length-quantity data types."
 
 [dependencies]
