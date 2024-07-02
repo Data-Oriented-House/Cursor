@@ -1,4 +1,4 @@
-# [Cursor]()
+# [Cursor](https://data-oriented-house.github.io/Cursor/)
  A wrapper around Luau's buffer library for serializing values on a stack.
 
 # Installation
