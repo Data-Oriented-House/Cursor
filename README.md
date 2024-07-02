@@ -1,6 +1,6 @@
 # [Cursor](https://data-oriented-house.github.io/Cursor/)
 <img src="/.moonwave/static/Cursor.png" alt="drawing" width="300"/>
- A wrapper around Luau's buffer library for serializing values on a stack. For more information, please visit the [documentation website](https://data-oriented-house.github.io/Cursor/).
+ A wrapper around Luau's buffer library for serializing values on a stack. For more information, please visit the [documentation website](https://data-oriented-house.github.io/Cursor).
 
 ## Source
 1. Go to the [github](https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau).
