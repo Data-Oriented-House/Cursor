@@ -1,8 +1,6 @@
 # [Cursor](https://data-oriented-house.github.io/Cursor/)
  A wrapper around Luau's buffer library for serializing values on a stack.
 
-# Installation
-
 ## Source
 1. Go to the [github](https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau).
 2. Copy the raw contents.
