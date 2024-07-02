@@ -1,5 +1,6 @@
 --!strict
 
+--- Returns a new buffer with all bytes from Buf between [0, Pos).
 local function tobuffer(cursor: Cursor): buffer
 	local buf = buffer.create(cursor.Pos)
 	buffer.copy(buf, 0, cursor.Buf, 0, cursor.Pos)
@@ -278,6 +279,7 @@ local function popf8(cursor: Cursor)
 	return buffer.readf64(cursor.Buf, cursor.Pos)
 end
 
+--- Packs up to 8 booleans in a single byte to make bitpacking and bitmasking trivial.
 local function pushbool(cursor: Cursor, a: boolean, b: boolean?, c: boolean?, d: boolean?, e: boolean?, f: boolean?, g: boolean?, h: boolean?)
 	pushu1(cursor,
 		if a then 1 else 0 +
@@ -292,6 +294,7 @@ local function pushbool(cursor: Cursor, a: boolean, b: boolean?, c: boolean?, d:
     return cursor
 end
 
+--- Pops a byte and unpacks the 8 bits as booleans.
 local function popbool(cursor: Cursor)
 	local x = popu1(cursor)
 	return
@@ -305,6 +308,7 @@ local function popbool(cursor: Cursor)
 		(0 / 128) % 2 >= 1
 end
 
+--- A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte.
 local function pushvlq(cursor: Cursor, x: number)
 	local x0 = x // 128 ^ 0 % 128
 	local x1 = x // 128 ^ 1 % 128
@@ -336,6 +340,7 @@ local function pushvlq(cursor: Cursor, x: number)
     return cursor
 end
 
+--- A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte. This is how the pop function can read the bytes in sequence from the head to know when to stop.
 local function popvlq(cursor: Cursor)
 	local b = popu1(cursor)
 	if b >= 128 then
@@ -383,10 +388,12 @@ local function popvlq(cursor: Cursor)
 	if b >= 128 then
 		return x + (b - 128) * 128 ^ 7
 	end
+    x += b * 128 ^ 7
 
-	error(`Not a valid vlq: {x + b * 128 ^ 7} = {buffer.tostring(cursor.Buf)}`)
+	error(`Not a valid vlq: {x} = {buffer.tostring(cursor.Buf)}`)
 end
 
+--- Pushes the entire string byte-per-character, then pushes a [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) after so `popstr` knows how many characters to pop.
 local function pushstr(cursor: Cursor, x: string)
 	local len = #x
 	tryRealloc(cursor, len)
@@ -396,12 +403,14 @@ local function pushstr(cursor: Cursor, x: string)
     return cursor
 end
 
+--- Pops off the [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) representing the length to then pop off and return all characters.
 local function popstr(cursor: Cursor)
 	local len = popvlq(cursor)
 	cursor.Pos -= len
 	return buffer.readstring(cursor.Buf, cursor.Pos, len)
 end
 
+--- Pretty prints a cursor.
 local function printcursor(cursor: Cursor)
     local bytes = {string.byte(buffer.tostring(cursor.Buf), 1, -1)}
     local offset = 7
@@ -478,7 +487,6 @@ local methods = {
 }
 local meta =  { __index = methods }
 
-
 --- Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor's buffer runs out of space, it will allocate a new buffer with 1.5x the size and copy the contents to that buffer. This means Cursors' buffer sizes only automatically grow, never shrink.
 --- @param size `= 8` How many bytes to initialize the buffer with.
 --- @param position `= 0` What byte to set the position to.
@@ -503,23 +511,20 @@ end
 --- @param buf The buffer to initialize with
 --- @param position `= buffer.len(buf)` What byte to set the position to.
 --- ```
---- -- Defaulting to size = 8, position = 0
---- local cursor = Cursor.frombuffer(buffer.fromstring("Hello World!"))
+--- local cursor = Cursor.frombuffer(buffer.fromstring 'Hello World!')
 --- Cursor.pushu1(cursor, 8)
 --- cursor:pushvlq(659386590836579356)
 --- --
---- -- Server
---- --
+--- -- Server Example
 --- local cursor = Cursor.new()
---- local buf = cursor:pushu2(792):pushf4(74958.38373):pushstr("Systems Online!"):tobuffer()
+--- local buf = cursor:pushu3(792):pushf4(74958.38373):pushstr("Systems Online!"):tobuffer()
 --- Remote:FireAllClients(buf)
 --- --
---- -- Client
---- --
+--- -- Client Example
 --- Remote.OnClientEvent:Connect(function(data: buffer)
 ---     local cursor = Cursor.frombuffer(data)
 ---     print(cursor:popstr())
----     print(cursor:popf4(), cursor:popu2())
+---     print(cursor:popf4(), cursor:popu3())
 --- end)
 --- ```
 local function frombuffer(buf: buffer, position: number?)
