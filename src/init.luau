@@ -8,7 +8,7 @@ local function tryRealloc(cursor: Cursor, bytes: number)
 	local b = cursor.buf
 	local p = cursor.pos
 	local len = buffer.len(b)
-	if len < (p :: any + bytes) then
+	if len < (p :: number + bytes) then
 		local exponent = math.ceil(math.log((bytes + p) / len, 1.5))
 		local new = buffer.create(len * 1.5 ^ exponent)
 		buffer.copy(new, 0, b, 0)
@@ -548,22 +548,22 @@ end
 	Pretty prints a cursor.
 ]=]
 local function printcursor(cursor: Cursor): ()
-	local bytes = {string.byte(buffer.tostring(cursor.buf), 1, -1)}
+	local bytes: {number | string} = {string.byte(buffer.tostring(cursor.buf), 1, -1)}
 	local offset = 7
 	for i = 1, cursor.pos do
-		local byte = bytes[i]
+		local byte = bytes[i] :: number
 		local digits = if byte == 0 then 1 else math.ceil(math.log10(1 + byte))
 		offset += digits + 1
 	end
 
-	local lastByte = bytes[cursor.pos + 1]
+	local lastByte = bytes[cursor.pos + 1] :: number
 	if lastByte then
 		local lastDigits = if lastByte == 0 then 1 else math.ceil(math.log10(1 + lastByte))
 		offset += lastDigits // 2
 	end
 
 	if #bytes == 0 or cursor.pos == buffer.len(cursor.buf) then
-		table.insert(bytes, ' ' :: any)
+		table.insert(bytes, ' ')
 	end
 
 	print(`Len: {buffer.len(cursor.buf)}\nPos: {cursor.pos}\nBuf: \{ {table.concat(bytes, ' ')} \}\n{string.rep(' ', offset)}^`)
