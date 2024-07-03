@@ -718,7 +718,7 @@ export type Cursor = typeof(new(...))
 
 return {
 	new = new,
-	fromBuffer = frombuffer,
+	frombuffer = frombuffer,
 
 	tobuffer = tobuffer,
 	torecord = tobuffit,
