@@ -29,7 +29,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu1(cursor: Cursor, x: number): Cursor   
+local function pushu1(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 1)
 	buffer.writeu8(cursor.buf, cursor.pos, x)
 	cursor.pos += 1
@@ -47,7 +47,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu2(cursor: Cursor, x: number): Cursor   
+local function pushu2(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 2)
 	buffer.writeu16(cursor.buf, cursor.pos, x)
 	cursor.pos += 2
@@ -65,7 +65,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu3(cursor: Cursor, x: number): Cursor   
+local function pushu3(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 3)
 	buffer.writeu8(cursor.buf, cursor.pos, x)
 	buffer.writeu16(cursor.buf, cursor.pos + 1, x // 256)
@@ -86,7 +86,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu4(cursor: Cursor, x: number): Cursor   
+local function pushu4(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 4)
 	buffer.writeu32(cursor.buf, cursor.pos, x)
 	cursor.pos += 4
@@ -104,7 +104,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu5(cursor: Cursor, x: number): Cursor   
+local function pushu5(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 5)
 	buffer.writeu8(cursor.buf, cursor.pos, x)
 	buffer.writeu32(cursor.buf, cursor.pos + 1, x // 256)
@@ -125,7 +125,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu6(cursor: Cursor, x: number): Cursor   
+local function pushu6(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 6)
 	buffer.writeu16(cursor.buf, cursor.pos, x)
 	buffer.writeu32(cursor.buf, cursor.pos + 2, x // 256 ^ 2)
@@ -146,7 +146,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu7(cursor: Cursor, x: number): Cursor   
+local function pushu7(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 7)
 	buffer.writeu8(cursor.buf, cursor.pos, x)
 	buffer.writeu16(cursor.buf, cursor.pos + 1, x // 256)
@@ -169,7 +169,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushu8(cursor: Cursor, x: number): Cursor   
+local function pushu8(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 8)
 	buffer.writeu32(cursor.buf, cursor.pos, x)
 	buffer.writeu32(cursor.buf, cursor.pos + 4, x // 256 ^ 4)
@@ -190,7 +190,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi1(cursor: Cursor, x: number): Cursor   
+local function pushi1(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 1)
 	buffer.writei8(cursor.buf, cursor.pos, x)
 	cursor.pos += 1
@@ -208,7 +208,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi2(cursor: Cursor, x: number): Cursor   
+local function pushi2(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 2)
 	buffer.writei16(cursor.buf, cursor.pos, x)
 	cursor.pos += 2
@@ -226,7 +226,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi3(cursor: Cursor, x: number): Cursor   
+local function pushi3(cursor: Cursor, x: number): Cursor
 	x %= 256 ^ 3
 	x = if x < 0 then 256 ^ 3 - x else x
 	tryRealloc(cursor, 3)
@@ -249,7 +249,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi4(cursor: Cursor, x: number): Cursor   
+local function pushi4(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 4)
 	buffer.writei32(cursor.buf, cursor.pos, x)
 	cursor.pos += 4
@@ -267,7 +267,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi5(cursor: Cursor, x: number): Cursor   
+local function pushi5(cursor: Cursor, x: number): Cursor
 	x %= 256 ^ 5
 	x = if x < 0 then 256 ^ 5 - x else x
 	tryRealloc(cursor, 5)
@@ -290,7 +290,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi6(cursor: Cursor, x: number): Cursor   
+local function pushi6(cursor: Cursor, x: number): Cursor
 	x %= 256 ^ 6
 	x = if x < 0 then 256 ^ 6 - x else x
 	tryRealloc(cursor, 6)
@@ -313,7 +313,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi7(cursor: Cursor, x: number): Cursor   
+local function pushi7(cursor: Cursor, x: number): Cursor
 	x %= 256 ^ 7
 	x = if x < 0 then 256 ^ 7 - x else x
 	tryRealloc(cursor, 7)
@@ -338,7 +338,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi8(cursor: Cursor, x: number): Cursor   
+local function pushi8(cursor: Cursor, x: number): Cursor
 	x %= 256 ^ 8
 	x = if x < 0 then 256 ^ 8 - x else x
 	tryRealloc(cursor, 8)
@@ -361,7 +361,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushf4(cursor: Cursor, x: number): Cursor   
+local function pushf4(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 4)
 	buffer.writef32(cursor.buf, cursor.pos, x)
 	cursor.pos += 4
@@ -379,7 +379,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushf8(cursor: Cursor, x: number): Cursor   
+local function pushf8(cursor: Cursor, x: number): Cursor
 	tryRealloc(cursor, 8)
 	buffer.writef64(cursor.buf, cursor.pos, x)
 	cursor.pos += 8
@@ -427,6 +427,24 @@ local function popbool(cursor: Cursor): (boolean, boolean, boolean, boolean, boo
 		(x / 32) % 2 >= 1,
 		(x / 64) % 2 >= 1,
 		(0 / 128) % 2 >= 1
+end
+
+--[=[
+	@within Cursor
+	Pushs 3 f4s, one for each component of the vector.
+]=]
+local function pushvector3f4(cursor: Cursor, x: vector)
+	pushf4(cursor, x.z)
+	pushf4(cursor, x.y)
+	pushf4(cursor, x.x)
+end
+
+--[=[
+	@within Cursor
+	Pops 3 f4s, one for each component of the vector.
+]=]
+local function popvector3f4(cursor: Cursor, x: vector)
+	return vector.create(popf4(cursor), popf4(cursor), popf4(cursor))
 end
 
 --[=[
@@ -638,6 +656,9 @@ local methods = {
 	pushbool = pushbool,
 	popbool = popbool,
 
+	pushvector3f4,
+	popvector3f4,
+
 	pushstr = pushstr,
 	popstr = popstr,
 
@@ -652,7 +673,7 @@ local meta =  { __index = methods }
 	Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor's buffer runs out of space, it will allocate a new buffer with 1.5x the size and copy the contents to that buffer. This means Cursors' buffer sizes only automatically grow, never shrink.
 	@param size number? = 8 -- How many bytes to initialize the buffer with.
 	@param position number? = 0 -- What byte to set the position to.
-   
+
 	```lua
 	-- Defaulting to size = 8, position = 0
 	local cursor = Cursor.new()
@@ -691,7 +712,7 @@ end
 		:pushstr("Systems Online!")
 		:tobuffer()
 	Remote:FireAllClients(buf)
-	
+
 	-- Client Example
 	Remote.OnClientEvent:Connect(function(data: buffer)
 		local cursor = Cursor.frombuffer(data)
@@ -765,6 +786,9 @@ return {
 
 	pushbool = pushbool,
 	popbool = popbool,
+
+	pushvector3f4,
+	popvector3f4,
 
 	pushstr = pushstr,
 	popstr = popstr,
