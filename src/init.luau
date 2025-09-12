@@ -431,7 +431,7 @@ end
 
 --[=[
 	@within Cursor
-	Pushs 3 f4s, one for each component of the vector.
+	Pushes 3 f4s, one for each component of the vector.
 ]=]
 local function pushvector3f4(cursor: Cursor, x: vector)
 	pushf4(cursor, x.z)
