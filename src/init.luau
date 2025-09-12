@@ -443,7 +443,7 @@ end
 	@within Cursor
 	Pops 3 f4s, one for each component of the vector.
 ]=]
-local function popvector3f4(cursor: Cursor, x: vector)
+local function popvector3f4(cursor: Cursor)
 	return vector.create(popf4(cursor), popf4(cursor), popf4(cursor))
 end
 
