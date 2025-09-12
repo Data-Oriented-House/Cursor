@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[912],{3891:s=>{s.exports=JSON.parse('{"sourceUrl":"https://github.com/Data-Oriented-House/Cursor/blob/main","baseUrl":"/Cursor/","classOrder":[],"apiCategories":[]}')}}]);
