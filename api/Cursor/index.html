@@ -1,0 +1,1377 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="plugin-moonwave plugin-id-moonwave">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v2.3.1">
+<title data-rh="true">Cursor | Cursor</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://data-oriented-house.github.io/Cursor/api/Cursor"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Cursor | Cursor"><meta data-rh="true" name="description" content="The root namespace to access the procedural api and create Cursor objects."><meta data-rh="true" property="og:description" content="The root namespace to access the procedural api and create Cursor objects."><link data-rh="true" rel="icon" href="/Cursor/favicon.ico"><link data-rh="true" rel="canonical" href="https://data-oriented-house.github.io/Cursor/api/Cursor"><link data-rh="true" rel="alternate" href="https://data-oriented-house.github.io/Cursor/api/Cursor" hreflang="en"><link data-rh="true" rel="alternate" href="https://data-oriented-house.github.io/Cursor/api/Cursor" hreflang="x-default"><link rel="stylesheet" href="/Cursor/assets/css/styles.e1adec2f.css">
+<link rel="preload" href="/Cursor/assets/js/runtime~main.d3ab4208.js" as="script">
+<link rel="preload" href="/Cursor/assets/js/main.bf6d5d37.js" as="script">
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
+<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/Cursor/"><div class="navbar__logo"><img src="/Cursor/favicon.ico" alt="" class="themedImage_ToTc themedImage--light_HNdA"><img src="/Cursor/favicon.ico" alt="" class="themedImage_ToTc themedImage--dark_i4oU"></div><b class="navbar__title text--truncate">Cursor</b></a><a class="navbar__item navbar__link" href="/Cursor/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/Cursor/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Data-Oriented-House/Cursor" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/Cursor/api/Cursor">​Cursor</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Cursor</span></h1><div class="luaClassTags_EipM"></div><div>
+<p>The root namespace to access the procedural api and create Cursor objects.</p>
+</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Cursor"><code style="text-decoration:none">Cursor</code><a href="#Cursor" class="hash-link" aria-label="Direct link to Cursor" title="Direct link to Cursor">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L738"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>Cursor<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>buf<!-- -->: </code><code class="blue_P4bS">buffer</code></div><div><code>pos<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>}</code></div><div>
+<p>A cousin of the <a href="https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau" target="_blank">Redblox Buffit Cursor</a> type. Has a metatable to allow for syntax sugar.</p>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="tobuffer"><code style="text-decoration:none">tobuffer</code><a href="#tobuffer" class="hash-link" aria-label="Direct link to tobuffer" title="Direct link to tobuffer">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L23"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">tobuffer</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">buffer</code></div><div>
+<p>Returns a new buffer with all bytes from buf between [0, pos).</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu1"><code style="text-decoration:none">pushu1</code><a href="#pushu1" class="hash-link" aria-label="Direct link to pushu1" title="Direct link to pushu1">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L32"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu1</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu1"><code style="text-decoration:none">popu1</code><a href="#popu1" class="hash-link" aria-label="Direct link to popu1" title="Direct link to popu1">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L42"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu1</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu2"><code style="text-decoration:none">pushu2</code><a href="#pushu2" class="hash-link" aria-label="Direct link to pushu2" title="Direct link to pushu2">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L50"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu2</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu2"><code style="text-decoration:none">popu2</code><a href="#popu2" class="hash-link" aria-label="Direct link to popu2" title="Direct link to popu2">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L60"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu2</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu3"><code style="text-decoration:none">pushu3</code><a href="#pushu3" class="hash-link" aria-label="Direct link to pushu3" title="Direct link to pushu3">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L68"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu3</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu3"><code style="text-decoration:none">popu3</code><a href="#popu3" class="hash-link" aria-label="Direct link to popu3" title="Direct link to popu3">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L79"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu3</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu4"><code style="text-decoration:none">pushu4</code><a href="#pushu4" class="hash-link" aria-label="Direct link to pushu4" title="Direct link to pushu4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L89"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu4</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu4"><code style="text-decoration:none">popu4</code><a href="#popu4" class="hash-link" aria-label="Direct link to popu4" title="Direct link to popu4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L99"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu4</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu5"><code style="text-decoration:none">pushu5</code><a href="#pushu5" class="hash-link" aria-label="Direct link to pushu5" title="Direct link to pushu5">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L107"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu5</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu5"><code style="text-decoration:none">popu5</code><a href="#popu5" class="hash-link" aria-label="Direct link to popu5" title="Direct link to popu5">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L118"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu5</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu6"><code style="text-decoration:none">pushu6</code><a href="#pushu6" class="hash-link" aria-label="Direct link to pushu6" title="Direct link to pushu6">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L128"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu6</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu6"><code style="text-decoration:none">popu6</code><a href="#popu6" class="hash-link" aria-label="Direct link to popu6" title="Direct link to popu6">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L139"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu6</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu7"><code style="text-decoration:none">pushu7</code><a href="#pushu7" class="hash-link" aria-label="Direct link to pushu7" title="Direct link to pushu7">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L149"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu7</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu7"><code style="text-decoration:none">popu7</code><a href="#popu7" class="hash-link" aria-label="Direct link to popu7" title="Direct link to popu7">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L161"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu7</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushu8"><code style="text-decoration:none">pushu8</code><a href="#pushu8" class="hash-link" aria-label="Direct link to pushu8" title="Direct link to pushu8">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L172"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushu8</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popu8"><code style="text-decoration:none">popu8</code><a href="#popu8" class="hash-link" aria-label="Direct link to popu8" title="Direct link to popu8">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L183"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popu8</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi1"><code style="text-decoration:none">pushi1</code><a href="#pushi1" class="hash-link" aria-label="Direct link to pushi1" title="Direct link to pushi1">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L193"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi1</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi1"><code style="text-decoration:none">popi1</code><a href="#popi1" class="hash-link" aria-label="Direct link to popi1" title="Direct link to popi1">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L203"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi1</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi2"><code style="text-decoration:none">pushi2</code><a href="#pushi2" class="hash-link" aria-label="Direct link to pushi2" title="Direct link to pushi2">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L211"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi2</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi2"><code style="text-decoration:none">popi2</code><a href="#popi2" class="hash-link" aria-label="Direct link to popi2" title="Direct link to popi2">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L221"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi2</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi3"><code style="text-decoration:none">pushi3</code><a href="#pushi3" class="hash-link" aria-label="Direct link to pushi3" title="Direct link to pushi3">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L229"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi3</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi3"><code style="text-decoration:none">popi3</code><a href="#popi3" class="hash-link" aria-label="Direct link to popi3" title="Direct link to popi3">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L242"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi3</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi4"><code style="text-decoration:none">pushi4</code><a href="#pushi4" class="hash-link" aria-label="Direct link to pushi4" title="Direct link to pushi4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L252"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi4</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi4"><code style="text-decoration:none">popi4</code><a href="#popi4" class="hash-link" aria-label="Direct link to popi4" title="Direct link to popi4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L262"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi4</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi5"><code style="text-decoration:none">pushi5</code><a href="#pushi5" class="hash-link" aria-label="Direct link to pushi5" title="Direct link to pushi5">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L270"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi5</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi5"><code style="text-decoration:none">popi5</code><a href="#popi5" class="hash-link" aria-label="Direct link to popi5" title="Direct link to popi5">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L283"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi5</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi6"><code style="text-decoration:none">pushi6</code><a href="#pushi6" class="hash-link" aria-label="Direct link to pushi6" title="Direct link to pushi6">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L293"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi6</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi6"><code style="text-decoration:none">popi6</code><a href="#popi6" class="hash-link" aria-label="Direct link to popi6" title="Direct link to popi6">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L306"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi6</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi7"><code style="text-decoration:none">pushi7</code><a href="#pushi7" class="hash-link" aria-label="Direct link to pushi7" title="Direct link to pushi7">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L316"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi7</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi7"><code style="text-decoration:none">popi7</code><a href="#popi7" class="hash-link" aria-label="Direct link to popi7" title="Direct link to popi7">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L330"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi7</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushi8"><code style="text-decoration:none">pushi8</code><a href="#pushi8" class="hash-link" aria-label="Direct link to pushi8" title="Direct link to pushi8">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L341"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushi8</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popi8"><code style="text-decoration:none">popi8</code><a href="#popi8" class="hash-link" aria-label="Direct link to popi8" title="Direct link to popi8">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L354"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popi8</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushf4"><code style="text-decoration:none">pushf4</code><a href="#pushf4" class="hash-link" aria-label="Direct link to pushf4" title="Direct link to pushf4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L364"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushf4</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popf4"><code style="text-decoration:none">popf4</code><a href="#popf4" class="hash-link" aria-label="Direct link to popf4" title="Direct link to popf4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L374"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popf4</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushf8"><code style="text-decoration:none">pushf8</code><a href="#pushf8" class="hash-link" aria-label="Direct link to pushf8" title="Direct link to pushf8">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L382"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushf8</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popf8"><code style="text-decoration:none">popf8</code><a href="#popf8" class="hash-link" aria-label="Direct link to popf8" title="Direct link to popf8">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L392"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popf8</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div></div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushbool"><code style="text-decoration:none">pushbool</code><a href="#pushbool" class="hash-link" aria-label="Direct link to pushbool" title="Direct link to pushbool">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L401"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushbool</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>a<!-- -->: </code><code class="blue_P4bS">boolean</code><code>,</code></div><div><code>b<!-- -->: </code><code class="blue_P4bS">boolean?</code><code>,</code></div><div><code>c<!-- -->: </code><code class="blue_P4bS">boolean?</code><code>,</code></div><div><code>d<!-- -->: </code><code class="blue_P4bS">boolean?</code><code>,</code></div><div><code>e<!-- -->: </code><code class="blue_P4bS">boolean?</code><code>,</code></div><div><code>f<!-- -->: </code><code class="blue_P4bS">boolean?</code><code>,</code></div><div><code>g<!-- -->: </code><code class="blue_P4bS">boolean?</code><code>,</code></div><div><code>h<!-- -->: </code><code class="blue_P4bS">boolean?</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div>
+<p>Packs up to 8 booleans in a single byte to make bitpacking and bitmasking trivial.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popbool"><code style="text-decoration:none">popbool</code><a href="#popbool" class="hash-link" aria-label="Direct link to popbool" title="Direct link to popbool">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L419"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popbool</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code>(</code><div class="inset_uKQm"><div><code class="blue_P4bS">boolean</code><code>,</code></div><div><code class="blue_P4bS">boolean</code><code>,</code></div><div><code class="blue_P4bS">boolean</code><code>,</code></div><div><code class="blue_P4bS">boolean</code><code>,</code></div><div><code class="blue_P4bS">boolean</code><code>,</code></div><div><code class="blue_P4bS">boolean</code><code>,</code></div><div><code class="blue_P4bS">boolean</code><code>,</code></div><div><code class="blue_P4bS">boolean</code></div></div><code>)</code></div><div>
+<p>Pops a byte and unpacks the 8 bits as booleans.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushvector3f4"><code style="text-decoration:none">pushvector3f4</code><a href="#pushvector3f4" class="hash-link" aria-label="Direct link to pushvector3f4" title="Direct link to pushvector3f4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L436"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushvector3f4</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">vector</code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Pushs 3 f4s, one for each component of the vector.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popvector3f4"><code style="text-decoration:none">popvector3f4</code><a href="#popvector3f4" class="hash-link" aria-label="Direct link to popvector3f4" title="Direct link to popvector3f4">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L446"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popvector3f4</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">vector</code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Pops 3 f4s, one for each component of the vector.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popvlq"><code style="text-decoration:none">popvlq</code><a href="#popvlq" class="hash-link" aria-label="Direct link to popvlq" title="Direct link to popvlq">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L454"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popvlq</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div>
+<p>A V.L.Q. is a <a href="https://en.wikipedia.org/wiki/Variable-length_quantity" target="_blank">Variable-Length-Quantity</a>. Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popvlq"><code style="text-decoration:none">popvlq</code><a href="#popvlq" class="hash-link" aria-label="Direct link to popvlq" title="Direct link to popvlq">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L489"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popvlq</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">number</code></div><div>
+<p>A V.L.Q. is a <a href="https://en.wikipedia.org/wiki/Variable-length_quantity" target="_blank">Variable-Length-Quantity</a>. Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte. This is how the pop function can read the bytes in sequence from the head to know when to stop.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pushstr"><code style="text-decoration:none">pushstr</code><a href="#pushstr" class="hash-link" aria-label="Direct link to pushstr" title="Direct link to pushstr">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L545"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">pushstr</code><code>(</code><div class="inset_uKQm"><div><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>,</code></div><div><code>x<!-- -->: </code><code class="blue_P4bS">string</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div>
+<p>Pushes the entire string byte-per-character, then pushes a <a href="https://en.wikipedia.org/wiki/Variable-length_quantity" target="_blank">V.L.Q.</a> after so <code>popstr</code> knows how many characters to pop.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="popstr"><code style="text-decoration:none">popstr</code><a href="#popstr" class="hash-link" aria-label="Direct link to popstr" title="Direct link to popstr">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L558"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">popstr</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS">string</code></div><div>
+<p>Pops off the <a href="https://en.wikipedia.org/wiki/Variable-length_quantity" target="_blank">V.L.Q.</a> representing the length to then pop off and return all characters.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="printcursor"><code style="text-decoration:none">printcursor</code><a href="#printcursor" class="hash-link" aria-label="Direct link to printcursor" title="Direct link to printcursor">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L568"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">printcursor</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Pretty prints a cursor.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="tobuffit"><code style="text-decoration:none">tobuffit</code><a href="#tobuffit" class="hash-link" aria-label="Direct link to tobuffit" title="Direct link to tobuffit">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L605"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">tobuffit</code><code>(</code><code>cursor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Buffit">Buffit</a></code></div><h3>Types</h3><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Buffit"><a href="#Buffit" class="hash-link" aria-label="Direct link to Buffit" title="Direct link to Buffit">​</a></h3><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>Buffit<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>Buf<!-- -->: </code><code class="blue_P4bS">buffer</code></div><div><code>Pos<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>}</code></div><div></div><div>
+<p>Map a Cursor into a <a href="https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau" target="_blank">Buffit Cursor</a> type.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a href="#new" class="hash-link" aria-label="Direct link to new" title="Direct link to new">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L688"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><div class="inset_uKQm"><div><code>size<!-- -->: </code><code class="blue_P4bS">number?</code><code class="blue_P4bS">=</code><code class="blue_P4bS">8</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>How many bytes to initialize the buffer with.</p>
+</span></span></div><div><code>position<!-- -->: </code><code class="blue_P4bS">number?</code><code class="blue_P4bS">=</code><code class="blue_P4bS">0</code><span class="inlineDescription_G7Er">-- <span>
+<p>What byte to set the position to.</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div>
+<p>Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor's buffer runs out of space, it will allocate a new buffer with 1.5x the size and copy the contents to that buffer. This means Cursors' buffer sizes only automatically grow, never shrink.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token comment">-- Defaulting to size = 8, position = 0</span>
+<span class="token keyword">local</span> cursor <span class="token operator">=</span> Cursor<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+Cursor<span class="token punctuation">.</span><span class="token function">pushu1</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span>
+cursor<span class="token punctuation">:</span><span class="token function">pushvlq</span><span class="token punctuation">(</span><span class="token number">659386590836579356</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- Setting size and position</span>
+<span class="token keyword">local</span> premadeCursor <span class="token operator">=</span> Cursor<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>premadeCursor<span class="token punctuation">:</span><span class="token function">popf8</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="frombuffer"><code style="text-decoration:none">frombuffer</code><a href="#frombuffer" class="hash-link" aria-label="Direct link to frombuffer" title="Direct link to frombuffer">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Data-Oriented-House/Cursor/blob/main/src/init.luau#L724"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Cursor<!-- -->.</code><code class="green_DgR4">frombuffer</code><code>(</code><div class="inset_uKQm"><div><code>buf<!-- -->: </code><code class="blue_P4bS">The</code><code class="blue_P4bS">buffer</code><code class="blue_P4bS">to</code><code class="blue_P4bS">initialize</code><code class="blue_P4bS">with</code><code>,</code></div><div><code>position<!-- -->: </code><code class="blue_P4bS">`=</code><code class="blue_P4bS">buffer.len(buf)`</code><code class="blue_P4bS">What</code><code class="blue_P4bS">byte</code><code class="blue_P4bS">to</code><code class="blue_P4bS">set</code><code class="blue_P4bS">the</code><code class="blue_P4bS">position</code><code class="blue_P4bS">to.</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/Cursor/api/Cursor#Cursor">Cursor</a></code></div><div>
+<p>Create a new Cursor object from a buffer stored by reference. Sets the buf field to the buffer and the pos field to the position parameter.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> cursor <span class="token operator">=</span> Cursor<span class="token punctuation">.</span><span class="token function">frombuffer</span><span class="token punctuation">(</span>buffer<span class="token punctuation">.</span>fromstring <span class="token string">'Hello World!'</span><span class="token punctuation">)</span>
+Cursor<span class="token punctuation">.</span><span class="token function">pushu1</span><span class="token punctuation">(</span>cursor<span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span>
+cursor<span class="token punctuation">:</span><span class="token function">pushvlq</span><span class="token punctuation">(</span><span class="token number">659386590836579356</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Here's an example using Roblox's RemoteEvent api to send data over the network.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token comment">-- Server Example</span>
+<span class="token keyword">local</span> buf <span class="token operator">=</span> Cursor<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">:</span><span class="token function">pushu3</span><span class="token punctuation">(</span><span class="token number">792</span><span class="token punctuation">)</span>
+	<span class="token punctuation">:</span><span class="token function">pushf4</span><span class="token punctuation">(</span><span class="token number">74958.38373</span><span class="token punctuation">)</span>
+	<span class="token punctuation">:</span><span class="token function">pushstr</span><span class="token punctuation">(</span><span class="token string">"Systems Online!"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">:</span><span class="token function">tobuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+Remote<span class="token punctuation">:</span><span class="token function">FireAllClients</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+
+<span class="token comment">-- Client Example</span>
+Remote<span class="token punctuation">.</span>OnClientEvent<span class="token punctuation">:</span><span class="token function">Connect</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">:</span> buffer<span class="token punctuation">)</span>
+	<span class="token keyword">local</span> cursor <span class="token operator">=</span> Cursor<span class="token punctuation">.</span><span class="token function">frombuffer</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+	<span class="token function">print</span><span class="token punctuation">(</span>Cursor<span class="token punctuation">.</span><span class="token function">popstr</span><span class="token punctuation">(</span>cursor<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token function">print</span><span class="token punctuation">(</span>cursor<span class="token punctuation">:</span><span class="token function">popf4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cursor<span class="token punctuation">:</span><span class="token function">popu3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+    &quot;functions&quot;: [
+        {
+            &quot;name&quot;: &quot;tobuffer&quot;,
+            &quot;desc&quot;: &quot;Returns a new buffer with all bytes from buf between [0, pos).&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;buffer\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 23,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu1&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 32,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu1&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 42,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu2&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 50,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu2&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 60,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu3&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 68,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu3&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 79,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu4&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 89,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu4&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 99,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu5&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 107,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu5&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 118,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu6&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 128,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu6&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 139,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu7&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 149,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu7&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 161,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushu8&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 172,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popu8&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 183,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi1&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 193,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi1&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 203,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi2&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 211,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi2&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 221,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi3&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 229,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi3&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 242,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi4&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 252,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi4&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 262,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi5&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 270,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi5&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 283,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi6&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 293,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi6&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 306,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi7&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 316,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi7&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 330,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushi8&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 341,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popi8&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 354,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushf4&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 364,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popf4&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 374,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushf8&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 382,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popf8&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 392,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushbool&quot;,
+            &quot;desc&quot;: &quot;Packs up to 8 booleans in a single byte to make bitpacking and bitmasking trivial.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;a&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;b&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;c&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;d&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;e&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;f&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;g&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;h&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 401,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popbool&quot;,
+            &quot;desc&quot;: &quot;Pops a byte and unpacks the 8 bits as booleans.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                },
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 419,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushvector3f4&quot;,
+            &quot;desc&quot;: &quot;Pushs 3 f4s, one for each component of the vector.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;vector&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 436,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popvector3f4&quot;,
+            &quot;desc&quot;: &quot;Pops 3 f4s, one for each component of the vector.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;vector&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 446,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popvlq&quot;,
+            &quot;desc&quot;: &quot;A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the \&quot;first\&quot; byte.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 454,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popvlq&quot;,
+            &quot;desc&quot;: &quot;A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the \&quot;first\&quot; byte. This is how the pop function can read the bytes in sequence from the head to know when to stop.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 489,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;pushstr&quot;,
+            &quot;desc&quot;: &quot;Pushes the entire string byte-per-character, then pushes a [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) after so `popstr` knows how many characters to pop.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 545,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;popstr&quot;,
+            &quot;desc&quot;: &quot;Pops off the [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) representing the length to then pop off and return all characters.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 558,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;printcursor&quot;,
+            &quot;desc&quot;: &quot;Pretty prints a cursor.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 568,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;tobuffit&quot;,
+            &quot;desc&quot;: &quot;Map a Cursor into a [Buffit Cursor](https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau) type.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;cursor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Buffit\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 605,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;new&quot;,
+            &quot;desc&quot;: &quot;Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor&#x27;s buffer runs out of space, it will allocate a new buffer with 1.5x the size and copy the contents to that buffer. This means Cursors&#x27; buffer sizes only automatically grow, never shrink.\n\n```lua\n-- Defaulting to size = 8, position = 0\nlocal cursor = Cursor.new()\nCursor.pushu1(cursor, 8)\ncursor:pushvlq(659386590836579356)\n\n-- Setting size and position\nlocal premadeCursor = Cursor.new(100, 50)\nprint(premadeCursor:popf8())\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;size&quot;,
+                    &quot;desc&quot;: &quot;How many bytes to initialize the buffer with.&quot;,
+                    &quot;lua_type&quot;: &quot;number? = 8&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;position&quot;,
+                    &quot;desc&quot;: &quot;What byte to set the position to.&quot;,
+                    &quot;lua_type&quot;: &quot;number? = 0&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 688,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;frombuffer&quot;,
+            &quot;desc&quot;: &quot;Create a new Cursor object from a buffer stored by reference. Sets the buf field to the buffer and the pos field to the position parameter.\n```lua\nlocal cursor = Cursor.frombuffer(buffer.fromstring &#x27;Hello World!&#x27;)\nCursor.pushu1(cursor, 8)\ncursor:pushvlq(659386590836579356)\n```\nHere&#x27;s an example using Roblox&#x27;s RemoteEvent api to send data over the network.\n```lua\n-- Server Example\nlocal buf = Cursor.new()\n\t:pushu3(792)\n\t:pushf4(74958.38373)\n\t:pushstr(\&quot;Systems Online!\&quot;)\n\t:tobuffer()\nRemote:FireAllClients(buf)\n\n-- Client Example\nRemote.OnClientEvent:Connect(function(data: buffer)\n\tlocal cursor = Cursor.frombuffer(data)\n\tprint(Cursor.popstr(cursor))\n\tprint(cursor:popf4(), cursor:popu3())\nend)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;buf&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;The buffer to initialize with&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;position&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;`= buffer.len(buf)` What byte to set the position to.&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Cursor\r\n&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 724,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        }
+    ],
+    &quot;properties&quot;: [],
+    &quot;types&quot;: [
+        {
+            &quot;name&quot;: &quot;Buffit&quot;,
+            &quot;desc&quot;: &quot;&quot;,
+            &quot;fields&quot;: [
+                {
+                    &quot;name&quot;: &quot;Buf&quot;,
+                    &quot;lua_type&quot;: &quot;buffer&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Pos&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                }
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 596,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Cursor&quot;,
+            &quot;desc&quot;: &quot;A cousin of the [Redblox Buffit Cursor](https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau) type. Has a metatable to allow for syntax sugar.&quot;,
+            &quot;fields&quot;: [
+                {
+                    &quot;name&quot;: &quot;buf&quot;,
+                    &quot;lua_type&quot;: &quot;buffer&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;pos&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                }
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 738,
+                &quot;path&quot;: &quot;src/init.luau&quot;
+            }
+        }
+    ],
+    &quot;name&quot;: &quot;Cursor&quot;,
+    &quot;desc&quot;: &quot;The root namespace to access the procedural api and create Cursor objects.&quot;,
+    &quot;source&quot;: {
+        &quot;line&quot;: 7,
+        &quot;path&quot;: &quot;src/init.luau&quot;
+    }
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#Buffit" class="table-of-contents__link toc-highlight">Buffit</a></li><li><a href="#Cursor" class="table-of-contents__link toc-highlight">Cursor</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#frombuffer" class="table-of-contents__link toc-highlight">.frombuffer</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li><li><a href="#popbool" class="table-of-contents__link toc-highlight">.popbool</a></li><li><a href="#popf4" class="table-of-contents__link toc-highlight">.popf4</a></li><li><a href="#popf8" class="table-of-contents__link toc-highlight">.popf8</a></li><li><a href="#popi1" class="table-of-contents__link toc-highlight">.popi1</a></li><li><a href="#popi2" class="table-of-contents__link toc-highlight">.popi2</a></li><li><a href="#popi3" class="table-of-contents__link toc-highlight">.popi3</a></li><li><a href="#popi4" class="table-of-contents__link toc-highlight">.popi4</a></li><li><a href="#popi5" class="table-of-contents__link toc-highlight">.popi5</a></li><li><a href="#popi6" class="table-of-contents__link toc-highlight">.popi6</a></li><li><a href="#popi7" class="table-of-contents__link toc-highlight">.popi7</a></li><li><a href="#popi8" class="table-of-contents__link toc-highlight">.popi8</a></li><li><a href="#popstr" class="table-of-contents__link toc-highlight">.popstr</a></li><li><a href="#popu1" class="table-of-contents__link toc-highlight">.popu1</a></li><li><a href="#popu2" class="table-of-contents__link toc-highlight">.popu2</a></li><li><a href="#popu3" class="table-of-contents__link toc-highlight">.popu3</a></li><li><a href="#popu4" class="table-of-contents__link toc-highlight">.popu4</a></li><li><a href="#popu5" class="table-of-contents__link toc-highlight">.popu5</a></li><li><a href="#popu6" class="table-of-contents__link toc-highlight">.popu6</a></li><li><a href="#popu7" class="table-of-contents__link toc-highlight">.popu7</a></li><li><a href="#popu8" class="table-of-contents__link toc-highlight">.popu8</a></li><li><a href="#popvector3f4" class="table-of-contents__link toc-highlight">.popvector3f4</a></li><li><a href="#popvlq" class="table-of-contents__link toc-highlight">.popvlq</a></li><li><a href="#popvlq" class="table-of-contents__link toc-highlight">.popvlq</a></li><li><a href="#printcursor" class="table-of-contents__link toc-highlight">.printcursor</a></li><li><a href="#pushbool" class="table-of-contents__link toc-highlight">.pushbool</a></li><li><a href="#pushf4" class="table-of-contents__link toc-highlight">.pushf4</a></li><li><a href="#pushf8" class="table-of-contents__link toc-highlight">.pushf8</a></li><li><a href="#pushi1" class="table-of-contents__link toc-highlight">.pushi1</a></li><li><a href="#pushi2" class="table-of-contents__link toc-highlight">.pushi2</a></li><li><a href="#pushi3" class="table-of-contents__link toc-highlight">.pushi3</a></li><li><a href="#pushi4" class="table-of-contents__link toc-highlight">.pushi4</a></li><li><a href="#pushi5" class="table-of-contents__link toc-highlight">.pushi5</a></li><li><a href="#pushi6" class="table-of-contents__link toc-highlight">.pushi6</a></li><li><a href="#pushi7" class="table-of-contents__link toc-highlight">.pushi7</a></li><li><a href="#pushi8" class="table-of-contents__link toc-highlight">.pushi8</a></li><li><a href="#pushstr" class="table-of-contents__link toc-highlight">.pushstr</a></li><li><a href="#pushu1" class="table-of-contents__link toc-highlight">.pushu1</a></li><li><a href="#pushu2" class="table-of-contents__link toc-highlight">.pushu2</a></li><li><a href="#pushu3" class="table-of-contents__link toc-highlight">.pushu3</a></li><li><a href="#pushu4" class="table-of-contents__link toc-highlight">.pushu4</a></li><li><a href="#pushu5" class="table-of-contents__link toc-highlight">.pushu5</a></li><li><a href="#pushu6" class="table-of-contents__link toc-highlight">.pushu6</a></li><li><a href="#pushu7" class="table-of-contents__link toc-highlight">.pushu7</a></li><li><a href="#pushu8" class="table-of-contents__link toc-highlight">.pushu8</a></li><li><a href="#pushvector3f4" class="table-of-contents__link toc-highlight">.pushvector3f4</a></li><li><a href="#tobuffer" class="table-of-contents__link toc-highlight">.tobuffer</a></li><li><a href="#tobuffit" class="table-of-contents__link toc-highlight">.tobuffit</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 SolarScuffle-Bot. Built with Moonwave and Docusaurus</div></div></div></footer></div>
+<script src="/Cursor/assets/js/runtime~main.d3ab4208.js"></script>
+<script src="/Cursor/assets/js/main.bf6d5d37.js"></script>
+</body>
+</html>
