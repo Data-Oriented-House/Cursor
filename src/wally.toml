@@ -1,6 +1,6 @@
 [package]
 name = "data-oriented-house/cursor"
-version = "2.0.0"
+version = "2.0.1"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 description = "A minimal wrapper around buffers to push and pop: number, string, bool, vector, and variable-length-quantity data types."
