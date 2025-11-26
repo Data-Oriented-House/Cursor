@@ -4,412 +4,490 @@
 	@class Cursor
 	The root namespace to access the procedural api and create Cursor objects.
 ]=]
-local function tryRealloc(cursor: Cursor, bytes: number)
-	local b = cursor.buf
-	local p = cursor.pos
-	local len = buffer.len(b)
-	if len < (p :: any + bytes) then
-		local exponent = math.ceil(math.log((bytes + p) / len, 1.5))
-		local new = buffer.create(len * 1.5 ^ exponent)
-		buffer.copy(new, 0, b, 0)
-		cursor.buf = new
+
+local OFFSET_SIZE = 4
+
+local function getbuf(cursor: Cursor): buffer
+	return cursor[1]
+end
+
+local function setbuf(cursor: Cursor, to: buffer): ()
+	cursor[1] = to
+end
+
+local function getpos(buf: buffer): number
+	return buffer.readu32(buf, 0)
+end
+
+local function setpos(buf: buffer, to: number): ()
+	buffer.writeu32(buf, 0, to)
+end
+
+--[=[
+	@within Cursor
+	Checks if the cursor needs to be reallocated after adding `bytes` bytes. If so, it reallocates 2x the size and swaps out the buffer.
+]=]
+local function tryrealloc(cursor: Cursor, bytes: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	local len = buffer.len(buf)
+	local targetlen = pos + bytes
+	if len < targetlen then
+		repeat
+			len *= 2
+		until len > targetlen
+		local oldbuf = buf
+		buf = buffer.create(len)
+		buffer.copy(buf, 0, oldbuf, 0, pos)
+		setbuf(cursor, buf)
 	end
 end
 
 --[=[
 	@within Cursor
-	Returns a new buffer with all bytes from buf between [0, pos).
 ]=]
-local function tobuffer(cursor: Cursor): buffer
-	local buf = buffer.create(cursor.pos)
-	buffer.copy(buf, 0, cursor.buf, 0, cursor.pos)
-	return buf
-end
-
---[=[
-	@within Cursor
-]=]
-local function pushu1(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 1)
-	buffer.writeu8(cursor.buf, cursor.pos, x)
-	cursor.pos += 1
-	return cursor
+local function pushu1(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 1)
+	buffer.writeu8(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu1(cursor: Cursor): number
-	cursor.pos -= 1
-	return buffer.readu8(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 1
+	setpos(buf, pos)
+	return buffer.readu8(buf, pos)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushu2(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 2)
-	buffer.writeu16(cursor.buf, cursor.pos, x)
-	cursor.pos += 2
-	return cursor
+local function pushu2(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 2)
+	buffer.writeu16(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu2(cursor: Cursor): number
-	cursor.pos -= 2
-	return buffer.readu16(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 2
+	setpos(buf, pos)
+	return buffer.readu16(buf, pos)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushu3(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 3)
-	buffer.writeu8(cursor.buf, cursor.pos, x)
-	buffer.writeu16(cursor.buf, cursor.pos + 1, x // 256)
-	cursor.pos += 3
-	return cursor
+local function pushu3(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 3)
+	buffer.writeu8(buf, pos, x)
+	buffer.writeu16(buf, pos + 1, x // 256)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu3(cursor: Cursor): number
-	cursor.pos -= 3
-	local x1 = buffer.readu8(cursor.buf, cursor.pos)
-	local x2 = buffer.readu16(cursor.buf, cursor.pos + 1)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 3
+	local x1 = buffer.readu8(buf, pos)
+	local x2 = buffer.readu16(buf, pos + 1)
+	setpos(buf, pos)
 	return x1 + x2 * 256
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushu4(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 4)
-	buffer.writeu32(cursor.buf, cursor.pos, x)
-	cursor.pos += 4
-	return cursor
+local function pushu4(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 4)
+	buffer.writeu32(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu4(cursor: Cursor): number
-	cursor.pos -= 4
-	return buffer.readu32(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 4
+	setpos(buf, pos)
+	return buffer.readu32(buf, pos)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushu5(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 5)
-	buffer.writeu8(cursor.buf, cursor.pos, x)
-	buffer.writeu32(cursor.buf, cursor.pos + 1, x // 256)
-	cursor.pos += 5
-	return cursor
+local function pushu5(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 5)
+	buffer.writeu8(buf, pos, x)
+	buffer.writeu32(buf, pos + 1, x // 256)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu5(cursor: Cursor): number
-	cursor.pos -= 5
-	local x1 = buffer.readu8(cursor.buf, cursor.pos)
-	local x2 = buffer.readu32(cursor.buf, cursor.pos + 1)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 5
+	local x1 = buffer.readu8(buf, pos)
+	local x2 = buffer.readu32(buf, pos + 1)
+	setpos(buf, pos)
 	return x1 + x2 * 256
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushu6(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 6)
-	buffer.writeu16(cursor.buf, cursor.pos, x)
-	buffer.writeu32(cursor.buf, cursor.pos + 2, x // 256 ^ 2)
-	cursor.pos += 6
-	return cursor
+local function pushu6(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 6)
+	buffer.writeu16(buf, pos, x)
+	buffer.writeu32(buf, pos + 2, x // (256 ^ 2))
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu6(cursor: Cursor): number
-	cursor.pos -= 6
-	local x1 = buffer.readu16(cursor.buf, cursor.pos)
-	local x2 = buffer.readu32(cursor.buf, cursor.pos + 2)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 6
+	local x1 = buffer.readu16(buf, pos)
+	local x2 = buffer.readu32(buf, pos + 2)
+	setpos(buf, pos)
 	return x1 + x2 * (256 ^ 2)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushu7(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 7)
-	buffer.writeu8(cursor.buf, cursor.pos, x)
-	buffer.writeu16(cursor.buf, cursor.pos + 1, x // 256)
-	buffer.writeu32(cursor.buf, cursor.pos + 3, x // 256 ^ 3)
-	cursor.pos += 7
-	return cursor
+local function pushu7(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 7)
+	buffer.writeu8(buf, pos, x)
+	buffer.writeu16(buf, pos + 1, x // 256)
+	buffer.writeu32(buf, pos + 3, x // (256 ^ 3))
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu7(cursor: Cursor): number
-	cursor.pos -= 7
-	local x1 = buffer.readu8(cursor.buf, cursor.pos)
-	local x2 = buffer.readu16(cursor.buf, cursor.pos + 1)
-	local x3 = buffer.readu32(cursor.buf, cursor.pos + 3)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 7
+	local x1 = buffer.readu8(buf, pos)
+	local x2 = buffer.readu16(buf, pos + 1)
+	local x3 = buffer.readu32(buf, pos + 3)
+	setpos(buf, pos)
 	return x1 + x2 * 256 + x3 * (256 ^ 3)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushu8(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 8)
-	buffer.writeu32(cursor.buf, cursor.pos, x)
-	buffer.writeu32(cursor.buf, cursor.pos + 4, x // 256 ^ 4)
-	cursor.pos += 8
-	return cursor
+local function pushu8(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 8)
+	buffer.writeu32(buf, pos, x)
+	buffer.writeu32(buf, pos + 4, x // (256 ^ 4))
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popu8(cursor: Cursor): number
-	cursor.pos -= 8
-	local x1 = buffer.readu32(cursor.buf, cursor.pos)
-	local x2 = buffer.readu32(cursor.buf, cursor.pos + 4)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 8
+	local x1 = buffer.readu32(buf, pos)
+	local x2 = buffer.readu32(buf, pos + 4)
+	setpos(buf, pos)
 	return x1 + x2 * (256 ^ 4)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushi1(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 1)
-	buffer.writei8(cursor.buf, cursor.pos, x)
-	cursor.pos += 1
-	return cursor
+local function pushi1(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 1)
+	buffer.writei8(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popi1(cursor: Cursor): number
-	cursor.pos -= 1
-	return buffer.readi8(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 1
+	setpos(buf, pos)
+	return buffer.readi8(buf, pos)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushi2(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 2)
-	buffer.writei16(cursor.buf, cursor.pos, x)
-	cursor.pos += 2
-	return cursor
+local function pushi2(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 2)
+	buffer.writei16(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popi2(cursor: Cursor): number
-	cursor.pos -= 2
-	return buffer.readi16(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 2
+	setpos(buf, pos)
+	return buffer.readi16(buf, pos)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushi3(cursor: Cursor, x: number): Cursor
-	x %= 256 ^ 3
-	x = if x < 0 then 256 ^ 3 - x else x
-	tryRealloc(cursor, 3)
-	buffer.writeu8(cursor.buf, cursor.pos, x)
-	buffer.writeu16(cursor.buf, cursor.pos + 1, x // 256)
-	cursor.pos += 3
-	return cursor
+local function pushi3(cursor, x: number): ()
+	x %= 2 ^ 24
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 3)
+	buffer.writeu8(buf, pos, x % 256)
+	buffer.writeu16(buf, pos + 1, x / 256)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function popi3(cursor: Cursor): number
-	cursor.pos -= 3
-	local x1 = buffer.readu8(cursor.buf, cursor.pos)
-	local x2 = buffer.readu16(cursor.buf, cursor.pos + 1)
-	return x1 + x2 * 256
+local function popi3(cursor): number
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 3
+	local x1 = buffer.readu8(buf, pos)
+	local x2 = buffer.readu16(buf, pos + 1)
+	setpos(buf, pos)
+	local x = x1 + x2 * 256
+	--[=[
+	@within Cursor
+]=]
+	return if x >= 2 ^ 23 then x - (2 ^ 24) else x
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushi4(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 4)
-	buffer.writei32(cursor.buf, cursor.pos, x)
-	cursor.pos += 4
-	return cursor
+local function pushi4(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 4)
+	buffer.writei32(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popi4(cursor: Cursor): number
-	cursor.pos -= 4
-	return buffer.readi32(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 4
+	setpos(buf, pos)
+	return buffer.readi32(buf, pos)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushi5(cursor: Cursor, x: number): Cursor
-	x %= 256 ^ 5
-	x = if x < 0 then 256 ^ 5 - x else x
-	tryRealloc(cursor, 5)
-	buffer.writei8(cursor.buf, cursor.pos, x)
-	buffer.writei32(cursor.buf, cursor.pos + 1, x // 256)
-	cursor.pos += 5
-	return cursor
+local function pushi5(cursor: Cursor, x: number): ()
+	x %= 2 ^ 40
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 5)
+	buffer.writeu8(buf, pos, x)
+	buffer.writeu32(buf, pos + 1, x / 256)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popi5(cursor: Cursor): number
-	cursor.pos -= 5
-	local x1 = buffer.readi8(cursor.buf, cursor.pos)
-	local x2 = buffer.readi32(cursor.buf, cursor.pos + 1)
-	return x1 + x2 * 256
-end
-
---[=[
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 5
+	setpos(buf, pos)
+	local x1 = buffer.readu8(buf, pos)
+	local x2 = buffer.readu32(buf, pos + 1)
+	local x = x1 + x2 * 256
+	--[=[
 	@within Cursor
 ]=]
-local function pushi6(cursor: Cursor, x: number): Cursor
-	x %= 256 ^ 6
-	x = if x < 0 then 256 ^ 6 - x else x
-	tryRealloc(cursor, 6)
-	buffer.writei16(cursor.buf, cursor.pos, x)
-	buffer.writei32(cursor.buf, cursor.pos + 2, x // 256 ^ 2)
-	cursor.pos += 6
-	return cursor
+	return if x >= 2 ^ 39 then x - (2 ^ 40) else x
+end
+
+local function pushi6(cursor: Cursor, x: number): ()
+	x %= 2 ^ 48
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 6)
+	buffer.writeu16(buf, pos, x)
+	buffer.writeu32(buf, pos + 2, x / (256 ^ 2))
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popi6(cursor: Cursor): number
-	cursor.pos -= 6
-	local x1 = buffer.readi16(cursor.buf, cursor.pos)
-	local x2 = buffer.readi32(cursor.buf, cursor.pos + 2)
-	return x1 + x2 * (256 ^ 2)
-end
-
---[=[
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 6
+	setpos(buf, pos)
+	local x1 = buffer.readu16(buf, pos)
+	local x2 = buffer.readu32(buf, pos + 2)
+	local x = x1 + x2 * (256 ^ 2)
+	--[=[
 	@within Cursor
 ]=]
-local function pushi7(cursor: Cursor, x: number): Cursor
-	x %= 256 ^ 7
-	x = if x < 0 then 256 ^ 7 - x else x
-	tryRealloc(cursor, 7)
-	buffer.writei8(cursor.buf, cursor.pos, x)
-	buffer.writei16(cursor.buf, cursor.pos + 1, x // 256)
-	buffer.writei32(cursor.buf, cursor.pos + 3, x // 256 ^ 3)
-	cursor.pos += 7
-	return cursor
+	return if x >= 2 ^ 47 then x - (2 ^ 48) else x
+end
+
+local function pushi7(cursor: Cursor, x: number): ()
+	x %= 2 ^ 56
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 7)
+	buffer.writeu8(buf, pos, x)
+	buffer.writeu16(buf, pos + 1, x / 256)
+	buffer.writeu32(buf, pos + 3, x / (256 ^ 3))
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popi7(cursor: Cursor): number
-	cursor.pos -= 7
-	local x1 = buffer.readi8(cursor.buf, cursor.pos)
-	local x2 = buffer.readi16(cursor.buf, cursor.pos + 1)
-	local x3 = buffer.readi32(cursor.buf, cursor.pos + 3)
-	return x1 + x2 * 256 + x3 * (256 ^ 3)
-end
-
---[=[
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 7
+	setpos(buf, pos)
+	local x1 = buffer.readu8(buf, pos)
+	local x2 = buffer.readu16(buf, pos + 1)
+	local x3 = buffer.readu32(buf, pos + 3)
+	--[=[
 	@within Cursor
 ]=]
-local function pushi8(cursor: Cursor, x: number): Cursor
-	x %= 256 ^ 8
-	x = if x < 0 then 256 ^ 8 - x else x
-	tryRealloc(cursor, 8)
-	buffer.writei32(cursor.buf, cursor.pos, x)
-	buffer.writei32(cursor.buf, cursor.pos + 4, x // 256 ^ 4)
-	cursor.pos += 8
-	return cursor
+	local x = x1 + x2 * 256 + x3 * (256 ^ 3)
+	return if x >= 2 ^ 55 then x - (2 ^ 56) else x
+end
+
+local function pushi8(cursor: Cursor, x: number): ()
+	x %= 2 ^ 64
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 8)
+	buffer.writeu32(buf, pos, x)
+	buffer.writeu32(buf, pos + 4, x / (256 ^ 4))
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popi8(cursor: Cursor): number
-	cursor.pos -= 8
-	local x1 = buffer.readi32(cursor.buf, cursor.pos)
-	local x2 = buffer.readi32(cursor.buf, cursor.pos + 4)
-	return x1 + x2 * (256 ^ 4)
-end
-
---[=[
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 8
+	setpos(buf, pos)
+	local x1 = buffer.readu32(buf, pos)
+	local x2 = buffer.readu32(buf, pos + 4)
+	local x = x1 + x2 * (256 ^ 4)
+	--[=[
 	@within Cursor
 ]=]
-local function pushf4(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 4)
-	buffer.writef32(cursor.buf, cursor.pos, x)
-	cursor.pos += 4
-	return cursor
+	return if x >= 2 ^ 63 then x - (2 ^ 64) else x
+end
+
+local function pushf4(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 4)
+	buffer.writef32(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popf4(cursor: Cursor): number
-	cursor.pos -= 4
-	return buffer.readf32(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 4
+	setpos(buf, pos)
+	return buffer.readf32(buf, pos)
 end
 
 --[=[
 	@within Cursor
 ]=]
-local function pushf8(cursor: Cursor, x: number): Cursor
-	tryRealloc(cursor, 8)
-	buffer.writef64(cursor.buf, cursor.pos, x)
-	cursor.pos += 8
-	return cursor
+local function pushf8(cursor: Cursor, x: number): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	setpos(buf, pos + 8)
+	buffer.writef64(buf, pos, x)
 end
 
 --[=[
 	@within Cursor
 ]=]
 local function popf8(cursor: Cursor): number
-	cursor.pos -= 8
-	return buffer.readf64(cursor.buf, cursor.pos)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - 8
+	setpos(buf, pos)
+	return buffer.readf64(buf, pos)
 end
 
 --[=[
 	@within Cursor
 	Packs up to 8 booleans in a single byte to make bitpacking and bitmasking trivial.
 ]=]
-local function pushbool(cursor: Cursor, a: boolean, b: boolean?, c: boolean?, d: boolean?, e: boolean?, f: boolean?, g: boolean?, h: boolean?): Cursor
-	pushu1(cursor,
-		if a then 1 else 0 +
-			if b then 2 else 0 +
-			if c then 4 else 0 +
-			if d then 8 else 0 +
-			if e then 16 else 0 +
-			if f then 32 else 0 +
-			if g then 64 else 0 +
-			if h then 128 else 0
-	)
-	return cursor
+local function pushbool(
+	cursor: Cursor,
+	a: boolean,
+	b: boolean?,
+	c: boolean?,
+	d: boolean?,
+	e: boolean?,
+	f: boolean?,
+	g: boolean?,
+	h: boolean?
+): ()
+	local y = if a then 1 else 0
+	if b then
+		y += 2
+	end
+	if c then
+		y += 4
+	end
+	if d then
+		y += 8
+	end
+	if e then
+		y += 16
+	end
+	if f then
+		y += 32
+	end
+	if g then
+		y += 64
+	end
+	if h then
+		y += 128
+	end
+	pushu1(cursor, y)
 end
 
 --[=[
@@ -418,22 +496,267 @@ end
 ]=]
 local function popbool(cursor: Cursor): (boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean)
 	local x = popu1(cursor)
-	return
-		(x / 1) % 2 >= 1,
-	(x / 2) % 2 >= 1,
-	(x / 4) % 2 >= 1,
-	(x / 8) % 2 >= 1,
-	(x / 16) % 2 >= 1,
-	(x / 32) % 2 >= 1,
-	(x / 64) % 2 >= 1,
-	(0 / 128) % 2 >= 1
+	return x % 2 >= 1, x % 4 >= 2, x % 8 >= 4, x % 16 >= 8, x % 32 >= 16, x % 64 >= 32, x % 128 >= 64, x % 256 >= 128
+end
+
+local pushvlq, popvlq
+do
+	local SHIFT32 = 2 ^ 32
+	local SHIFT25 = 2 ^ 25
+	local BASE = 2 ^ 7
+
+	--[=[
+		@within Cursor
+		A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte.
+	]=]
+	function pushvlq(cursor: Cursor, x: number): ()
+		local count = 1
+		if x >= 2 ^ 49 then
+			count = 8
+		elseif x >= 2 ^ 42 then
+			count = 7
+		elseif x >= 2 ^ 35 then
+			count = 6
+		elseif x >= 2 ^ 28 then
+			count = 5
+		elseif x >= 2 ^ 21 then
+			count = 4
+		elseif x >= 2 ^ 14 then
+			count = 3
+		elseif x >= 2 ^ 7 then
+			count = 2
+		end
+
+		tryrealloc(cursor, count)
+
+		local hi = x // SHIFT32
+		local lo = x - hi * SHIFT32
+
+		pushu1(cursor, lo % BASE)
+
+		if count >= 2 then
+			local prevHi = hi
+			local rem = prevHi % BASE
+			local newLo = rem * SHIFT25 + (lo // BASE)
+			local newHi = prevHi // BASE
+			pushu1(cursor, (newLo % BASE) + BASE)
+			lo, hi = newLo, newHi
+		end
+
+		if count >= 3 then
+			local prevHi = hi
+			local rem = prevHi % BASE
+			local newLo = rem * SHIFT25 + (lo // BASE)
+			local newHi = prevHi // BASE
+			pushu1(cursor, (newLo % BASE) + BASE)
+			lo, hi = newLo, newHi
+		end
+
+		if count >= 4 then
+			local prevHi = hi
+			local rem = prevHi % BASE
+			local newLo = rem * SHIFT25 + (lo // BASE)
+			local newHi = prevHi // BASE
+			pushu1(cursor, (newLo % BASE) + BASE)
+			lo, hi = newLo, newHi
+		end
+
+		if count >= 5 then
+			local prevHi = hi
+			local rem = prevHi % BASE
+			local newLo = rem * SHIFT25 + (lo // BASE)
+			local newHi = prevHi // BASE
+			pushu1(cursor, (newLo % BASE) + BASE)
+			lo, hi = newLo, newHi
+		end
+
+		if count >= 6 then
+			local prevHi = hi
+			local rem = prevHi % BASE
+			local newLo = rem * SHIFT25 + (lo // BASE)
+			local newHi = prevHi // BASE
+			pushu1(cursor, (newLo % BASE) + BASE)
+			lo, hi = newLo, newHi
+		end
+
+		if count >= 7 then
+			local prevHi = hi
+			local rem = prevHi % BASE
+			local newLo = rem * SHIFT25 + (lo // BASE)
+			local newHi = prevHi // BASE
+			pushu1(cursor, (newLo % BASE) + BASE)
+			lo, hi = newLo, newHi
+		end
+
+		if count == 8 then
+			local prevHi = hi
+			local rem = prevHi % BASE
+			local newLo = rem * SHIFT25 + (lo // BASE)
+			pushu1(cursor, (newLo % BASE) + BASE)
+		end
+	end
+
+	--[=[
+		@within Cursor
+		A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte. This is how the pop function can read the bytes in sequence from the head to know when to stop.
+	]=]
+	function popvlq(cursor: Cursor): number
+		local b1: number = popu1(cursor)
+		local v1 = b1 % BASE
+		if b1 < BASE then
+			return v1
+		end
+
+		local b2 = popu1(cursor)
+		local v2 = v1 * BASE + (b2 % BASE)
+		if b2 < BASE then
+			return v2
+		end
+
+		local b3 = popu1(cursor)
+		local v3 = v2 * BASE + (b3 % BASE)
+		if b3 < BASE then
+			return v3
+		end
+
+		local b4 = popu1(cursor)
+		local v4 = v3 * BASE + (b4 % BASE)
+		if b4 < BASE then
+			return v4
+		end
+
+		local b5 = popu1(cursor)
+		local v5 = v4 * BASE + (b5 % BASE)
+		if b5 < BASE then
+			return v5
+		end
+
+		local b6 = popu1(cursor)
+		local v6 = v5 * BASE + (b6 % BASE)
+		if b6 < BASE then
+			return v6
+		end
+
+		local b7 = popu1(cursor)
+		local v7 = v6 * BASE + (b7 % BASE)
+		if b7 < BASE then
+			return v7
+		end
+
+		local b8 = popu1(cursor)
+		local v8 = v7 * BASE + (b8 % BASE)
+		return v8
+	end
 end
 
 --[=[
 	@within Cursor
-	Pushes 3 f4s, one for each component of the vector.
+	Pushes the entire string byte-per-character, then if no length is provided, pushes a [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) after so `popstr` knows how many characters to pop.
 ]=]
-local function pushvector3f4(cursor: Cursor, x: vector)
+local function pushstr(cursor: Cursor, x: string, length: number?): ()
+	local len = length or #x
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	buffer.writestring(buf, pos, x)
+	setpos(buf, pos + len)
+
+	if not length then
+		pushvlq(cursor, len)
+	end
+end
+
+--[=[
+	@within Cursor
+	If no length is provided it pops off a [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) representing the length, to then pop off and return all characters.
+]=]
+local function popstr(cursor: Cursor, length: number?): string
+	local len = length or popvlq(cursor)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - len
+	setpos(buf, pos)
+	return buffer.readstring(buf, pos, len)
+end
+
+--[=[
+	@within Cursor
+]=]
+local function pushbuf(cursor: Cursor, x: buffer, length: number?): ()
+	local len = length or buffer.len(x)
+	tryrealloc(cursor, len)
+
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	buffer.copy(buf, pos, x, 0, len)
+	setpos(buf, pos + len)
+
+	if not length then
+		pushvlq(cursor, len)
+	end
+end
+
+--[=[
+	@within Cursor
+]=]
+local function popbuf(cursor: Cursor, length: number?): buffer
+	local len = length or popvlq(cursor)
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - len
+	setpos(buf, pos)
+
+	local new = buffer.create(len)
+	buffer.copy(new, 0, buf, pos, len)
+	return new
+end
+
+--[=[
+	@within Cursor
+]=]
+local function printcursor(cursor: Cursor): ()
+	local buf = getbuf(cursor)
+	local pos = getpos(buf) - OFFSET_SIZE
+
+	local bytes = { string.byte(buffer.tostring(buf), OFFSET_SIZE + 1, -1) }
+	local offset = 7
+	for i = 1, pos do
+		local byte = bytes[i]
+		local digits = if byte == 0 then 1 else math.ceil(math.log10(1 + byte))
+		offset += digits + 1
+	end
+
+	local lastByte = bytes[pos + 1]
+	if lastByte then
+		local lastDigits = if lastByte == 0 then 1 else math.ceil(math.log10(1 + lastByte))
+		offset += lastDigits // 2
+	end
+
+	if #bytes == 0 or pos == buffer.len(buf) - OFFSET_SIZE then
+		table.insert(bytes, " " :: any)
+	end
+
+	print(
+		`Pos: {pos} / {buffer.len(buf) - OFFSET_SIZE}\nBuf: \{ {table.concat(bytes, " ")} \}\n{string.rep(" ", offset)}^`
+	)
+end
+
+--[=[
+	@within Cursor
+]=]
+local function pushvector2f4(cursor: Cursor, x: vector): ()
+	pushf4(cursor, x.y)
+	pushf4(cursor, x.x)
+end
+
+--[=[
+	@within Cursor
+]=]
+local function popvector2f4(cursor: Cursor): vector
+	return vector.create(popf4(cursor), popf4(cursor))
+end
+
+--[=[
+	@within Cursor
+]=]
+local function pushvector3f4(cursor: Cursor, x: vector): ()
 	pushf4(cursor, x.z)
 	pushf4(cursor, x.y)
 	pushf4(cursor, x.x)
@@ -441,178 +764,41 @@ end
 
 --[=[
 	@within Cursor
-	Pops 3 f4s, one for each component of the vector.
 ]=]
-local function popvector3f4(cursor: Cursor)
+local function popvector3f4(cursor: Cursor): vector
 	return vector.create(popf4(cursor), popf4(cursor), popf4(cursor))
 end
 
---[=[
-	@within Cursor
-	A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte.
-]=]
-local function pushvlq(cursor: Cursor, x: number): Cursor
-	local x0 = x // 128 ^ 0 % 128
-	local x1 = x // 128 ^ 1 % 128
-	local x2 = x // 128 ^ 2 % 128
-	local x3 = x // 128 ^ 3 % 128
-	local x4 = x // 128 ^ 4 % 128
-	local x5 = x // 128 ^ 5 % 128
-	local x6 = x // 128 ^ 6 % 128
-	local x7 = x // 128 ^ 7 % 128
-
-	if x7 ~= 0 then
-		pushu8(cursor, x0 * 256 ^ 7 + x1 * 256 ^ 6 + x2 * 256 ^ 5 + x3 * 256 ^ 4 + x4 * 256 ^ 3 + x5 * 256 ^ 2 + x6 * 256 + x7 + 128)
-	elseif x6 ~= 0 then
-		pushu7(cursor, x0 * 256 ^ 6 + x1 * 256 ^ 5 + x2 * 256 ^ 4 + x3 * 256 ^ 3 + x4 * 256 ^ 2 + x5 * 256 + x6 + 128)
-	elseif x5 ~= 0 then
-		pushu6(cursor, x0 * 256 ^ 5 + x1 * 256 ^ 4 + x2 * 256 ^ 3 + x3 * 256 ^ 2 + x4 * 256 + x5 + 128)
-	elseif x4 ~= 0 then
-		pushu5(cursor, x0 * 256 ^ 4 + x1 * 256 ^ 3 + x2 * 256 ^ 2 + x3 * 256 + x4 + 128)
-	elseif x3 ~= 0 then
-		pushu4(cursor, x0 * 256 ^ 3 + x1 * 256 ^ 2 + x2 * 256 + x3 + 128)
-	elseif x2 ~= 0 then
-		pushu3(cursor, x0 * 256 ^ 2 + x1 * 256 + x2 + 128)
-	elseif x1 ~= 0 then
-		pushu2(cursor, x0 * 256 + x1 + 128)
-	else
-		pushu1(cursor, x0 + 128)
-	end
-
-	return cursor
+local function pushvector4f4(cursor: Cursor, x: vector): ()
+	pushf4(cursor, x.w)
+	pushf4(cursor, x.z)
+	pushf4(cursor, x.y)
+	pushf4(cursor, x.x)
 end
 
 --[=[
 	@within Cursor
-	A V.L.Q. is a [Variable-Length-Quantity](https://en.wikipedia.org/wiki/Variable-length_quantity). Because this is pushed onto the stack, the bytes are ordered in reverse and the finished flag is on the "first" byte. This is how the pop function can read the bytes in sequence from the head to know when to stop.
 ]=]
-local function popvlq(cursor: Cursor): number
-	local b = popu1(cursor)
-	if b >= 128 then
-		return b - 128
-	end
-	local x = b
-
-	b = popu1(cursor)
-	if b >= 128 then
-		return x + (b - 128) * 128
-	end
-	x += b * 128
-
-	b = popu1(cursor)
-	if b >= 128 then
-		return x + (b - 128) * 128 ^ 2
-	end
-	x += b * 128 ^ 2
-
-	b = popu1(cursor)
-	if b >= 128 then
-		return x + (b - 128) * 128 ^ 3
-	end
-	x += b * 128 ^ 3
-
-	b = popu1(cursor)
-	if b >= 128 then
-		return x + (b - 128) * 128 ^ 4
-	end
-	x += b * 128 ^ 4
-
-	b = popu1(cursor)
-	if b >= 128 then
-		return x + (b - 128) * 128 ^ 5
-	end
-	x += b * 128 ^ 5
-
-	b = popu1(cursor)
-	if b >= 128 then
-		return x + (b - 128) * 128 ^ 6
-	end
-	x += b * 128 ^ 6
-
-	b = popu1(cursor)
-	if b >= 128 then
-		return x + (b - 128) * 128 ^ 7
-	end
-	x += b * 128 ^ 7
-
-	error(`Not a valid vlq: {x} = {buffer.tostring(cursor.buf)}`)
+local function popvector4f4(cursor: Cursor): vector
+	return vector.create(popf4(cursor), popf4(cursor), popf4(cursor), popf4(cursor))
 end
 
 --[=[
 	@within Cursor
-	Pushes the entire string byte-per-character, then pushes a [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) after so `popstr` knows how many characters to pop.
 ]=]
-local function pushstr(cursor: Cursor, x: string): Cursor
-	local len = #x
-	tryRealloc(cursor, len)
-	buffer.writestring(cursor.buf, cursor.pos, x)
-	cursor.pos += len
-	pushvlq(cursor, len)
-	return cursor
-end
-
---[=[
-	@within Cursor
-	Pops off the [V.L.Q.](https://en.wikipedia.org/wiki/Variable-length_quantity) representing the length to then pop off and return all characters.
-]=]
-local function popstr(cursor: Cursor): string
-	local len = popvlq(cursor)
-	cursor.pos -= len
-	return buffer.readstring(cursor.buf, cursor.pos, len)
-end
-
---[=[
-	@within Cursor
-	Pretty prints a cursor.
-]=]
-local function printcursor(cursor: Cursor): ()
-	local bytes = {string.byte(buffer.tostring(cursor.buf), 1, -1)}
-	local offset = 7
-	for i = 1, cursor.pos do
-		local byte = bytes[i]
-		local digits = if byte == 0 then 1 else math.ceil(math.log10(1 + byte))
-		offset += digits + 1
-	end
-
-	local lastByte = bytes[cursor.pos + 1]
-	if lastByte then
-		local lastDigits = if lastByte == 0 then 1 else math.ceil(math.log10(1 + lastByte))
-		offset += lastDigits // 2
-	end
-
-	if #bytes == 0 or cursor.pos == buffer.len(cursor.buf) then
-		table.insert(bytes, ' ' :: any)
-	end
-
-	print(`Len: {buffer.len(cursor.buf)}\nPos: {cursor.pos}\nBuf: \{ {table.concat(bytes, ' ')} \}\n{string.rep(' ', offset)}^`)
-end
-
---[=[
-	@within Cursor
-	@interface Buffit
-	.Buf buffer
-	.Pos number
-]=]
-type Buffit = {
-	Buf: buffer,
-	Pos: number,
-}
-
---[=[
-	@within Cursor
-	Map a Cursor into a [Buffit Cursor](https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau) type.
-]=]
-local function tobuffit(cursor: Cursor): Buffit
-	return {
-		Buf = cursor.buf,
-		Pos = cursor.pos,
-	}
+local function tobuffer(cursor: Cursor): buffer
+	local buf = getbuf(cursor)
+	local pos = getpos(buf)
+	local newbuf = buffer.create(pos - OFFSET_SIZE)
+	buffer.copy(newbuf, 0, buf, OFFSET_SIZE, pos - OFFSET_SIZE)
+	return newbuf
 end
 
 local methods = {
 	tobuffer = tobuffer,
-	torecord = tobuffit,
 	print = printcursor,
+
+	tryrealloc = tryrealloc,
 
 	pushu1 = pushu1,
 	pushu2 = pushu2,
@@ -656,21 +842,30 @@ local methods = {
 	pushbool = pushbool,
 	popbool = popbool,
 
+	pushvector2f4 = pushvector2f4,
+	popvector2f4 = popvector2f4,
+
 	pushvector3f4 = pushvector3f4,
 	popvector3f4 = popvector3f4,
+
+	pushvector4f4 = pushvector4f4,
+	popvector4f4 = popvector4f4,
 
 	pushstr = pushstr,
 	popstr = popstr,
 
 	pushvlq = pushvlq,
 	popvlq = popvlq,
+
+	pushbuf = pushbuf,
+	popbuf = popbuf,
 }
-local meta =  { __index = methods }
+local meta = { __index = methods }
 
 --[=[
 	@within Cursor
 
-	Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor's buffer runs out of space, it will allocate a new buffer with 1.5x the size and copy the contents to that buffer. This means Cursors' buffer sizes only automatically grow, never shrink.
+	Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor's buffer runs out of space, it will allocate a new buffer with 2x the size and copy the contents to that buffer. This means Cursors' buffer sizes only automatically grow, never shrink.
 	@param size number? = 8 -- How many bytes to initialize the buffer with.
 	@param position number? = 0 -- What byte to set the position to.
 
@@ -685,11 +880,10 @@ local meta =  { __index = methods }
 	print(premadeCursor:popf8())
 	```
 ]=]
-local function new(size: number?, position: number?): Cursor
-	return setmetatable({
-		buf = buffer.create(size or 8), --? Chosen to not use too much space and not resize too quickly as a starting point
-		pos = position or 0,
-	}, meta)
+local function new(size: number?, pos: number?): Cursor
+	local buf = buffer.create((size or 8) + OFFSET_SIZE)
+	buffer.writeu32(buf, 0, (pos or 0) + OFFSET_SIZE)
+	return setmetatable({ buf }, meta)
 end
 
 --[=[
@@ -721,29 +915,28 @@ end
 	end)
 	```
 ]=]
-local function frombuffer(buf: buffer, position: number?): Cursor
-	return setmetatable({
-		buf = buf,
-		pos = position or buffer.len(buf),
-	}, meta)
+local function frombuffer(buf: buffer, pos: number?): Cursor
+	local newlen = buffer.len(buf)
+	local newbuf = buffer.create(newlen + OFFSET_SIZE)
+	local pos = (pos or newlen) + OFFSET_SIZE
+	buffer.writeu32(newbuf, 0, pos)
+	buffer.copy(newbuf, OFFSET_SIZE, buf, 0, newlen)
+	return setmetatable({ newbuf }, meta)
 end
 
 --[=[
 	@within Cursor
-	@interface Cursor
-	.buf buffer
-	.pos number
-	A cousin of the [Redblox Buffit Cursor](https://github.com/red-blox/Util/blob/main/libs/Buffit/Buffit.luau) type. Has a metatable to allow for syntax sugar.
+	Has a metatable to allow for optional syntax sugar, which can be avoided using the procedural api for performance reasons.
 ]=]
 export type Cursor = typeof(new(...))
 
 return {
 	new = new,
 	frombuffer = frombuffer,
-
 	tobuffer = tobuffer,
-	torecord = tobuffit,
+
 	print = printcursor,
+	tryrealloc = tryrealloc,
 
 	pushu1 = pushu1,
 	pushu2 = pushu2,
@@ -787,12 +980,21 @@ return {
 	pushbool = pushbool,
 	popbool = popbool,
 
+	pushvector2f4 = pushvector2f4,
+	popvector2f4 = popvector2f4,
+
 	pushvector3f4 = pushvector3f4,
 	popvector3f4 = popvector3f4,
+
+	pushvector4f4 = pushvector4f4,
+	popvector4f4 = popvector4f4,
 
 	pushstr = pushstr,
 	popstr = popstr,
 
 	pushvlq = pushvlq,
 	popvlq = popvlq,
+
+	pushbuf = pushbuf,
+	popbuf = popbuf,
 }
