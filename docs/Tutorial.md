@@ -166,15 +166,15 @@ local buf = spaceshipToBuffer {
 }
 ```
 Our pretty printed output:
-```
-Len: 60
-Pos: 56
+```lua
+Pos: 56 / 60
 Buf: { 2 158 153 25 205 204 204 61 68 101 103 97 115 105 134 80 97 117 108 32 84 111 114 103 97 108 139 66 97 114 116 32 84 111 114 103 97 108 139 77 97 114 103 117 101 114 105 116 32 77 97 105 100 97 143 131 0 0 0 0 }
                                                                                                                                                                                                                  ^
+```
 We can see exactly what we we pushed onto the cursor here in bytes! Let's analyze it.
-
+```lua
 flags
-(2 = 01000000)    locked 0b1, occupied 0b01, undermaintenance 0b001
+(2 = 010)    locked 001, occupied 010, undermaintenance 100
 
 numbers
 (158 153 25)        onlineDuration 1677726u8
@@ -184,7 +184,7 @@ strings
 (68 101 103 97 115 105 | 134)                                    name "Degasi" | vlq 6
 (80 97 117 108 32 84 111 114 103 97 108 | 139)                   crew "Paul Torgal" | vlq 11
 (66 97 114 116 32 84 111 114 103 97 108 | 139)                   crew "Bart Torgal" | vlq 11
-(77 97 114 103 117 101 114 105 116 32 77 97 105 100 97 | 143)    crew "Marguerit Maida" | vlq 15 
+(77 97 114 103 117 101 114 105 116 32 77 97 105 100 97 | 143)    crew "Marguerit Maida" | vlq 15
 
 crew count
 (131)    vlq 3
