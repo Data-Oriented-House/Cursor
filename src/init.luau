@@ -263,7 +263,7 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function pushi3(cursor, x: number): ()
+local function pushi3(cursor: Cursor, x: number): ()
 	x %= 2 ^ 24
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
@@ -275,16 +275,13 @@ end
 --[=[
 	@within Cursor
 ]=]
-local function popi3(cursor): number
+local function popi3(cursor: Cursor): number
 	local buf = getbuf(cursor)
 	local pos = getpos(buf) - 3
 	local x1 = buffer.readu8(buf, pos)
 	local x2 = buffer.readu16(buf, pos + 1)
 	setpos(buf, pos)
 	local x = x1 + x2 * 256
-	--[=[
-	@within Cursor
-]=]
 	return if x >= 2 ^ 23 then x - (2 ^ 24) else x
 end
 
@@ -330,12 +327,12 @@ local function popi5(cursor: Cursor): number
 	local x1 = buffer.readu8(buf, pos)
 	local x2 = buffer.readu32(buf, pos + 1)
 	local x = x1 + x2 * 256
-	--[=[
-	@within Cursor
-]=]
 	return if x >= 2 ^ 39 then x - (2 ^ 40) else x
 end
 
+--[=[
+	@within Cursor
+]=]
 local function pushi6(cursor: Cursor, x: number): ()
 	x %= 2 ^ 48
 	local buf = getbuf(cursor)
@@ -355,12 +352,12 @@ local function popi6(cursor: Cursor): number
 	local x1 = buffer.readu16(buf, pos)
 	local x2 = buffer.readu32(buf, pos + 2)
 	local x = x1 + x2 * (256 ^ 2)
-	--[=[
-	@within Cursor
-]=]
 	return if x >= 2 ^ 47 then x - (2 ^ 48) else x
 end
 
+--[=[
+	@within Cursor
+]=]
 local function pushi7(cursor: Cursor, x: number): ()
 	x %= 2 ^ 56
 	local buf = getbuf(cursor)
@@ -381,13 +378,13 @@ local function popi7(cursor: Cursor): number
 	local x1 = buffer.readu8(buf, pos)
 	local x2 = buffer.readu16(buf, pos + 1)
 	local x3 = buffer.readu32(buf, pos + 3)
-	--[=[
-	@within Cursor
-]=]
 	local x = x1 + x2 * 256 + x3 * (256 ^ 3)
 	return if x >= 2 ^ 55 then x - (2 ^ 56) else x
 end
 
+--[=[
+	@within Cursor
+]=]
 local function pushi8(cursor: Cursor, x: number): ()
 	x %= 2 ^ 64
 	local buf = getbuf(cursor)
@@ -407,12 +404,12 @@ local function popi8(cursor: Cursor): number
 	local x1 = buffer.readu32(buf, pos)
 	local x2 = buffer.readu32(buf, pos + 4)
 	local x = x1 + x2 * (256 ^ 4)
-	--[=[
-	@within Cursor
-]=]
 	return if x >= 2 ^ 63 then x - (2 ^ 64) else x
 end
 
+--[=[
+	@within Cursor
+]=]
 local function pushf4(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
@@ -710,6 +707,7 @@ end
 
 --[=[
 	@within Cursor
+	Pretty prints a cursor.
 ]=]
 local function printcursor(cursor: Cursor): ()
 	local buf = getbuf(cursor)
@@ -769,6 +767,10 @@ local function popvector3f4(cursor: Cursor): vector
 	return vector.create(popf4(cursor), popf4(cursor), popf4(cursor))
 end
 
+--[=[
+	@within Cursor
+	Only available when Luau's 4-wide vectors are enabled.
+]=]
 local function pushvector4f4(cursor: Cursor, x: vector): ()
 	pushf4(cursor, x.w)
 	pushf4(cursor, x.z)
@@ -778,6 +780,7 @@ end
 
 --[=[
 	@within Cursor
+	Only available when Luau's 4-wide vectors are enabled.
 ]=]
 local function popvector4f4(cursor: Cursor): vector
 	return vector.create(popf4(cursor), popf4(cursor), popf4(cursor), popf4(cursor))
@@ -785,6 +788,7 @@ end
 
 --[=[
 	@within Cursor
+	Trims the cursor's whitespace down to a dense buffer. Use this for sending over the network or storing in a database.
 ]=]
 local function tobuffer(cursor: Cursor): buffer
 	local buf = getbuf(cursor)
@@ -864,16 +868,19 @@ local meta = { __index = methods }
 
 --[=[
 	@within Cursor
-
-	Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor's buffer runs out of space, it will allocate a new buffer with 2x the size and copy the contents to that buffer. This means Cursors' buffer sizes only automatically grow, never shrink.
+	@function new
 	@param size number? = 8 -- How many bytes to initialize the buffer with.
 	@param position number? = 0 -- What byte to set the position to.
+
+	Used in conjunction with `frombuffer`.
+
+	Create a new Cursor object with an optional size and optional position. A Cursor object acts like a dynamic stack you can push and pop from, serialzing data into and out of a buffer. If the Cursor's buffer runs out of space, it will allocate a new buffer with 2x the size and copy the contents to that buffer. This means Cursors' buffer sizes only automatically grow, never shrink.
 
 	```lua
 	-- Defaulting to size = 8, position = 0
 	local cursor = Cursor.new()
 	Cursor.pushu1(cursor, 8)
-	cursor:pushvlq(659386590836579356)
+	cursor:pushvlq(65938579356)
 
 	-- Setting size and position
 	local premadeCursor = Cursor.new(100, 50)
@@ -888,12 +895,16 @@ end
 
 --[=[
 	@within Cursor
+	@function frombuffer
+	@param buf buffer -- The buffer to initialize with
+	@param position number? -- What byte to set the position to.
 
-	Create a new Cursor object from a buffer stored by reference. Sets the buf field to the buffer and the pos field to the position parameter.
-	@param buf The buffer to initialize with
-	@param position `= buffer.len(buf)` What byte to set the position to.
+	Used in conjunction with `tobuffer`.
+
+	Create a new Cursor object from a buffer stored by reference.
+
 	```lua
-	local cursor = Cursor.frombuffer(buffer.fromstring 'Hello World!')
+	local cursor = Cursor.frombuffer(buf)
 	Cursor.pushu1(cursor, 8)
 	cursor:pushvlq(659386590836579356)
 	```
@@ -926,6 +937,7 @@ end
 
 --[=[
 	@within Cursor
+	@type Cursor { buffer }
 	Has a metatable to allow for optional syntax sugar, which can be avoided using the procedural api for performance reasons.
 ]=]
 export type Cursor = typeof(new(...))
