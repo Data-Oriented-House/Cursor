@@ -49,6 +49,7 @@ end
 local function pushu1(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 1)
 	setpos(buf, pos + 1)
 	buffer.writeu8(buf, pos, x)
 end
@@ -69,6 +70,7 @@ end
 local function pushu2(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 2)
 	setpos(buf, pos + 2)
 	buffer.writeu16(buf, pos, x)
 end
@@ -89,6 +91,7 @@ end
 local function pushu3(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 3)
 	setpos(buf, pos + 3)
 	buffer.writeu8(buf, pos, x)
 	buffer.writeu16(buf, pos + 1, x // 256)
@@ -112,6 +115,7 @@ end
 local function pushu4(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 4)
 	setpos(buf, pos + 4)
 	buffer.writeu32(buf, pos, x)
 end
@@ -132,6 +136,7 @@ end
 local function pushu5(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 5)
 	setpos(buf, pos + 5)
 	buffer.writeu8(buf, pos, x)
 	buffer.writeu32(buf, pos + 1, x // 256)
@@ -155,6 +160,7 @@ end
 local function pushu6(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 6)
 	setpos(buf, pos + 6)
 	buffer.writeu16(buf, pos, x)
 	buffer.writeu32(buf, pos + 2, x // (256 ^ 2))
@@ -178,6 +184,7 @@ end
 local function pushu7(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 7)
 	setpos(buf, pos + 7)
 	buffer.writeu8(buf, pos, x)
 	buffer.writeu16(buf, pos + 1, x // 256)
@@ -203,6 +210,7 @@ end
 local function pushu8(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 8)
 	setpos(buf, pos + 8)
 	buffer.writeu32(buf, pos, x)
 	buffer.writeu32(buf, pos + 4, x // (256 ^ 4))
@@ -226,6 +234,7 @@ end
 local function pushi1(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 1)
 	setpos(buf, pos + 1)
 	buffer.writei8(buf, pos, x)
 end
@@ -246,6 +255,7 @@ end
 local function pushi2(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 2)
 	setpos(buf, pos + 2)
 	buffer.writei16(buf, pos, x)
 end
@@ -267,6 +277,7 @@ local function pushi3(cursor: Cursor, x: number): ()
 	x %= 2 ^ 24
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 3)
 	setpos(buf, pos + 3)
 	buffer.writeu8(buf, pos, x % 256)
 	buffer.writeu16(buf, pos + 1, x / 256)
@@ -291,6 +302,7 @@ end
 local function pushi4(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 4)
 	setpos(buf, pos + 4)
 	buffer.writei32(buf, pos, x)
 end
@@ -312,6 +324,7 @@ local function pushi5(cursor: Cursor, x: number): ()
 	x %= 2 ^ 40
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 5)
 	setpos(buf, pos + 5)
 	buffer.writeu8(buf, pos, x)
 	buffer.writeu32(buf, pos + 1, x / 256)
@@ -337,6 +350,7 @@ local function pushi6(cursor: Cursor, x: number): ()
 	x %= 2 ^ 48
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 6)
 	setpos(buf, pos + 6)
 	buffer.writeu16(buf, pos, x)
 	buffer.writeu32(buf, pos + 2, x / (256 ^ 2))
@@ -362,6 +376,7 @@ local function pushi7(cursor: Cursor, x: number): ()
 	x %= 2 ^ 56
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 7)
 	setpos(buf, pos + 7)
 	buffer.writeu8(buf, pos, x)
 	buffer.writeu16(buf, pos + 1, x / 256)
@@ -389,6 +404,7 @@ local function pushi8(cursor: Cursor, x: number): ()
 	x %= 2 ^ 64
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 8)
 	setpos(buf, pos + 8)
 	buffer.writeu32(buf, pos, x)
 	buffer.writeu32(buf, pos + 4, x / (256 ^ 4))
@@ -413,6 +429,7 @@ end
 local function pushf4(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 4)
 	setpos(buf, pos + 4)
 	buffer.writef32(buf, pos, x)
 end
@@ -433,6 +450,7 @@ end
 local function pushf8(cursor: Cursor, x: number): ()
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, 8)
 	setpos(buf, pos + 8)
 	buffer.writef64(buf, pos, x)
 end
@@ -484,6 +502,7 @@ local function pushbool(
 	if h then
 		y += 128
 	end
+	tryrealloc(cursor, 1)
 	pushu1(cursor, y)
 end
 
@@ -523,8 +542,6 @@ do
 		elseif x >= 2 ^ 7 then
 			count = 2
 		end
-
-		tryrealloc(cursor, count)
 
 		local hi = x // SHIFT32
 		local lo = x - hi * SHIFT32
@@ -654,6 +671,7 @@ local function pushstr(cursor: Cursor, x: string, length: number?): ()
 	local len = length or #x
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, len)
 	buffer.writestring(buf, pos, x)
 	setpos(buf, pos + len)
 
@@ -679,10 +697,9 @@ end
 ]=]
 local function pushbuf(cursor: Cursor, x: buffer, length: number?): ()
 	local len = length or buffer.len(x)
-	tryrealloc(cursor, len)
-
 	local buf = getbuf(cursor)
 	local pos = getpos(buf)
+	tryrealloc(cursor, len)
 	buffer.copy(buf, pos, x, 0, len)
 	setpos(buf, pos + len)
 
